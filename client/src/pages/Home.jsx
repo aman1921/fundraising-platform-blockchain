@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import { DisplayCampaigns } from '../components';
 import { useStateContext } from '../context'
-import {search} from '../../../../project_crowdfunding/client/src/assets/index'
 
 const Home = ({searchQuery}) => {
   const [isLoading, setIsLoading] = useState(false);
