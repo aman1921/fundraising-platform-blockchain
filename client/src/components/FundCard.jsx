@@ -13,7 +13,6 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const FundCard = ({ owner, title, description, target, deadline, amountCollected, image, handleClick }) => {
   const remainingDays = daysLeft(deadline);
   const location = useLocation();
-
   function getFacebookShareUrl(url) {
     return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
   }  

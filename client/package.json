@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dve": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "yarn build && npx thirdweb@latest upload dist"

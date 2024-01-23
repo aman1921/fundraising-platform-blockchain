@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import FundCard from './FundCard';
 import { loader, search } from '../assets';
+import { daysLeft } from '../utils';
 
 const DisplayCampaigns = ({ title, isLoading, campaigns, searchQuery }) => {
   const navigate = useNavigate();
-
+  const [allCampaigns,setAllCampaigns]=useState(campaigns);
+  useEffect(()=>{
+    setAllCampaigns(allCampaigns.filter((campaign)=>daysLeft(campaign.deadline)>0));
+    // console.log(campaigns);
+  },[])
   const handleNavigate = (campaign) => {
     navigate(`/campaign-details/${campaign.title}`, { state: campaign })
   }
@@ -15,7 +20,7 @@ const DisplayCampaigns = ({ title, isLoading, campaigns, searchQuery }) => {
   return (
     <div>
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
-        {title} ({campaigns.length})
+        {title} ({allCampaigns.length})
       </h1>
 
       <div className="flex flex-wrap mt-[20px] gap-[26px]">
@@ -34,20 +39,20 @@ const DisplayCampaigns = ({ title, isLoading, campaigns, searchQuery }) => {
         )}
 
         {!isLoading &&
-          campaigns.length > 0 &&
-          campaigns
+          allCampaigns.length > 0 &&
+          allCampaigns
             .filter(
               (ele) =>
-                ele.title.toLowerCase().includes(searchQuery) ||
-                ele.description.toLowerCase().includes(searchQuery)
+                (ele.title.toLowerCase().includes(searchQuery) ||
+                ele.description.toLowerCase().includes(searchQuery))
             )
-            .map((campaign) => (
-              <FundCard
-                key={campaign.id}
-                {...campaign}
-                handleClick={() => handleNavigate(campaign)}
-              />
-            ))}
+            .map((campaign) => {
+            <FundCard
+            key={campaign.id}
+            {...campaign}
+            handleClick={() => handleNavigate(campaign)}
+            />
+})}
       </div>
     </div>
   );
